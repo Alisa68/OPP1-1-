@@ -96,4 +96,22 @@ class RadioTest {
         assertEquals(5, rad.getCurrentRadioStation());
 
     }
+    @Test
+    void shouldSetCurrentRadioStation(){
+        Radio rad = new Radio();
+        rad.setCurrentRadioStationNumber(4);
+        assertEquals(4,rad.getCurrentRadioStation());
+    }
+    @Test
+    void shouldSetCurrentRadioStationNegativMin() {
+        Radio rad = new Radio();
+        rad.setCurrentRadioStationNumber(-10);
+        assertEquals(0, rad.getCurrentRadioStation());
+    }
+        @Test
+        void shouldSetCurrentRadioStationNegativMax() {
+            Radio rad = new Radio();
+            rad.setCurrentRadioStationNumber(11);
+            assertEquals(0, rad.getCurrentRadioStation());
+        }
 }
