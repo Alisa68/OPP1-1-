@@ -2,6 +2,7 @@ package ru.netology.domain;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
@@ -17,7 +18,7 @@ public class Radio {
      int minRadioStation = 0;
 
 
-     public Radio (int currentRadioStation,
+     public Radio(int currentRadioStation,
                   int maxRadioStation, int minRadioStation, int numberOfRadioStations) {
 
           this.currentRadioStation = currentRadioStation;
@@ -42,52 +43,54 @@ public class Radio {
           }
      }
 
-          public void changeTheStationByPrevButton () {
-               if (currentRadioStation == minRadioStation) {
-                    currentRadioStation = maxRadioStation;
+     public void changeTheStationByPrevButton() {
+          if (currentRadioStation == minRadioStation) {
+               currentRadioStation = maxRadioStation;
 
-               } else {
-                    currentRadioStation -= 1;
-
-               }
+          } else {
+               currentRadioStation -= 1;
 
           }
 
-          public void increaseVolume () {
-               if (currentVolume >= maxVolume) {
-                    currentVolume = maxVolume;
-                    return;
-               } else {
-                    currentVolume++;
-                    return;
-               }
-          }
+     }
 
-
-          public void decreaseVolume () {
-               if (currentVolume <= minVolume) {
-                    currentVolume = minVolume;
-                    return;
-
-               } else {
-                    currentVolume--;
-                    return;
-
-               }
-          }
-          public void setCurrentRadioStation ( int currentRadioStation){
-               this.currentRadioStation = currentRadioStation;
-          }
-          public void setCurrentRadioStationNumber ( int currentRadioStation){
-               if (currentRadioStation > maxRadioStation) {
-                    return;
-               }
-               if (currentRadioStation < minRadioStation) {
-                    return;
-               }
-               this.currentRadioStation = currentRadioStation;
+     public void increaseVolume() {
+          if (currentVolume >= maxVolume) {
+               currentVolume = maxVolume;
+               return;
+          } else {
+               currentVolume++;
+               return;
           }
      }
+
+
+     public void decreaseVolume() {
+          if (currentVolume <= minVolume) {
+               currentVolume = minVolume;
+               return;
+
+          } else {
+               currentVolume--;
+               return;
+
+          }
+     }
+
+     public void setCurrentRadioStation(int currentRadioStation) {
+          this.currentRadioStation = currentRadioStation;
+     }
+
+     public void setCurrentRadioStationNumber(int currentRadioStation) {
+          if (currentRadioStation > maxRadioStation) {
+               return;
+          }
+          if (currentRadioStation < minRadioStation) {
+               return;
+          }
+          this.currentRadioStation = currentRadioStation;
+     }
+}
 
 
 
