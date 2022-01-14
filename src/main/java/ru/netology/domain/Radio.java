@@ -9,28 +9,28 @@ public class Radio {
     private int minVolume = 0;
 
     private int currentRadioStation = 5;
-    private int numberOfRadioStations = 10;
     private int maxRadioStation = 9;
+    private int numberOfRadioStations = calculateNumberOfRadioStations();
     private int minRadioStation = 0;
 
-    public Radio() {
-    }
 
     public Radio(int currentRadioStation,
-                 int maxRadioStation, int minRadioStation, int numberOfRadioStations) {
+                 int maxRadioStation, int minRadioStationint, int maxVolume, int minVolume, int currentVolume, int numberOfRadioStations) {
 
         this.currentRadioStation = currentRadioStation;
         this.maxRadioStation = maxRadioStation;
-        this.minRadioStation = minRadioStation;
-        this.numberOfRadioStations = numberOfRadioStations;
-    }
-
-    public Radio(int maxVolume, int minVolume, int currentVolume) {
+        this.minRadioStation = minRadioStationint;
         this.maxVolume = maxVolume;
         this.minVolume = minVolume;
         this.currentVolume = currentVolume;
+        this.numberOfRadioStations=numberOfRadioStations;
+    }
+    public Radio() {
     }
 
+    public int calculateNumberOfRadioStations(){
+        return maxRadioStation+1;
+    }
     public void selectingTheWrongRadioStationNumber() {
         if (currentRadioStation >= maxRadioStation) {
             currentRadioStation = 0;

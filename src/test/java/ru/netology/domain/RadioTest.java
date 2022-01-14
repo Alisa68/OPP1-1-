@@ -7,23 +7,25 @@ import static org.junit.jupiter.api.Assertions.*;
 class RadioTest {
 
     @Test
-    void shouldSelectTheTenthRadioStation() {
-        Radio radio = new Radio(5, 9,
-                0, 15);
-        assertEquals(15, radio.getNumberOfRadioStations(), "Количество радиостанций");
+    void shouldShowNumberOfRadioStations() {
+        Radio radio = new Radio(50, 99,0,100,0,5,100);
+        assertEquals(100, radio.getNumberOfRadioStations(), "Количество радиостанций");
     }
-
+    @Test  void shouldShowNumberOfRadioStationsEmpty() {
+        Radio radio= new Radio();
+        assertEquals(10, radio.getNumberOfRadioStations(), "Количество радиостанций");
+    }
 
     @Test
     void shouldSetNumberRadiostationChanging() {
-        Radio radio = new Radio(5, 9, 0, 10);
+        Radio radio = new Radio(5, 9, 0,100,0,50,10);
 
         assertEquals(5, radio.getCurrentRadioStation(), "Номер радиостанции с цифрового пульта");
     }
 
     @Test
     void shoruldSelectingTheWrongRadioStationNumbe() {
-        Radio rad = new Radio(-1, 9, 0, 10);
+        Radio rad = new Radio(-1, 9, 0,100,0,50,10);
         rad.selectingTheWrongRadioStationNumber();
         assertEquals(0, rad.getCurrentRadioStation(), "Негативное минимальное граничное значение");
     }
@@ -31,7 +33,7 @@ class RadioTest {
     @Test
     void shouldChangeTheStationByButtonNextIfCurrentIsNine() {
         Radio radio = new Radio(9,
-                9, 0, 10);
+                9, 0,100,0,50,10);
         radio.selectingTheWrongRadioStationNumber();
         assertEquals(0, radio.getMinRadioStation(), "Текущая радиостанция - max, " +
                 "next (следующая) на пульте, то текущая 0-ая");
@@ -39,7 +41,7 @@ class RadioTest {
 
     @Test
     void shouldTheNextChannelOfTheRadioStation() {
-        Radio rad = new Radio(45, 49, 0, 50);
+        Radio rad = new Radio(45, 49, 0,100,0,50,50);
         rad.selectingTheWrongRadioStationNumber();
         assertEquals(46, rad.getCurrentRadioStation(), "Следующий канал");
     }
@@ -47,7 +49,7 @@ class RadioTest {
     @Test
     void shouldChangeTheStationByPrevButtonIfCurrentIsNull() {
         Radio radio = new Radio(0,
-                9, 0, 10);
+                9, 0,100,0,50,10);
         radio.changeTheStationByPrevButton();
         assertEquals(9, radio.getMaxRadioStation(), "Текущая радиостанция - 0,  prev (предыдущая) " +
                 "на пульте, то текущей должна стать максимальная");
@@ -55,7 +57,7 @@ class RadioTest {
 
     @Test
     void shouldChangeTheStationByPrevButton() {
-        Radio rad = new Radio(5, 9, 0, 10);
+        Radio rad = new Radio(5, 9, 0,100,0,49,10);
         rad.changeTheStationByPrevButton();
         assertEquals(4, rad.getCurrentRadioStation(), "Предыдущий канал");
     }
@@ -63,14 +65,14 @@ class RadioTest {
 
     @Test
     void shouldIincreaseTheVolumeByOneStep() {
-        Radio rad = new Radio(100, 0, 50);
+        Radio rad = new Radio(5,9,0,100, 0, 50,10);
         rad.increaseVolume();
         assertEquals(51, rad.getCurrentVolume(), "Увеличить громкость++1");
     }
 
     @Test
     void shouldIncreaseTheMaximumVolumeValue() {
-        Radio rad = new Radio(10, 0, 11);
+        Radio rad = new Radio(5,9,0,10, 0, 11,10);
         rad.increaseVolume();
         assertEquals(10, rad.getMaxVolume(), "Негативное максимальное граничное значение");
     }
@@ -86,7 +88,7 @@ class RadioTest {
 
     @Test
     void shouldReduceTheMinimumVolumeValue() {
-        Radio rad = new Radio(100, 0, 99);
+        Radio rad = new Radio(99,99,0,100, 0, 99,100);
         rad.decreaseVolume();
         assertEquals(98, rad.getCurrentVolume(), "Уменьшение громкости 1--");
     }
