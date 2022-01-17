@@ -15,15 +15,16 @@ public class Radio {
 
 
     public Radio(int numberOfRadioStations) {
-
-        this.numberOfRadioStations=numberOfRadioStations;
+        this.numberOfRadioStations = numberOfRadioStations;
     }
+
     public Radio() {
     }
 
-    public int calculateNumberOfRadioStations(){
-        return maxRadioStation+1;
+    public int calculateNumberOfRadioStations() {
+        return maxRadioStation + 1;
     }
+
     public void selectingTheWrongRadioStationNumber() {
         if (currentRadioStation >= maxRadioStation) {
             currentRadioStation = 0;
