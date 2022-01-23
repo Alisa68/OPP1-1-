@@ -5,15 +5,31 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RadioTest {
+    @Test
+    void shouldShowTheNumberOfStations() {
+        Radio radio = new Radio(15);
+        assertEquals(15, radio.getNumberOfRadioStations(), "Кол-во станций");
+    }
 
     @Test
-    void shouldShowNumberOfRadioStations() {
-        Radio radio = new Radio(100);
-        assertEquals(100, radio.getNumberOfRadioStations(), "Количество радиостанций");
+    void shouldStations() {
+        Radio radio = new Radio(20);
+        radio.setStations(15);
+        assertEquals(15, radio.getCurrentRadioStation(), "Номер радиостанции,с заданным кол-вом станций");
     }
-    @Test  void shouldShowNumberOfRadioStationsEmpty() {
-        Radio radio= new Radio();
-        assertEquals(10, radio.getNumberOfRadioStations(), "Количество радиостанций");
+
+    @Test
+    void shouldSetStationIsMoreThanTheNumberOfStations() {
+        Radio radio = new Radio();
+        radio.setStations(10);
+        assertEquals(5, radio.getCurrentRadioStation(), "Номер радиостанции. Негативное max значение");
+    }
+
+    @Test
+    void shouldSetStationOfASmallerNumberOfStations() {
+        Radio radio = new Radio();
+        radio.setStations(-1);
+        assertEquals(5, radio.getCurrentRadioStation(), "Номер радиостанции. Негативное min значение");
     }
 
     @Test
