@@ -7,29 +7,56 @@ import static org.junit.jupiter.api.Assertions.*;
 class RadioTest {
     @Test
     void shouldShowTheNumberOfStations() {
-        Radio radio = new Radio(15);
-        assertEquals(15, radio.getNumberOfRadioStations(), "Кол-во станций");
+        Radio radio = new Radio();
+        assertEquals(10, radio.getNumberOfRadioStations(), "Кол-во станций по умолчанию");
     }
 
     @Test
     void shouldStations() {
         Radio radio = new Radio(20);
         radio.setStations(15);
-        assertEquals(15, radio.getCurrentRadioStation(), "Номер радиостанции,с заданным кол-вом станций");
+        assertEquals(15, radio.getCurrentRadioStation(),
+                "Номер радиостанции,с заданными 20-ю станциями");
+    }
+
+    @Test
+    void shouldStationsNegativMax() {
+        Radio radio = new Radio(20);
+        radio.setStations(21);
+        assertEquals(5, radio.getCurrentRadioStation(),
+                "Номер радиостанции. Негативное max");
     }
 
     @Test
     void shouldSetStationIsMoreThanTheNumberOfStations() {
         Radio radio = new Radio();
-        radio.setStations(100);
+        radio.setStations(10);
         assertEquals(5, radio.getCurrentRadioStation(), "Номер радиостанции. Негативное max значение");
     }
 
     @Test
-    void shouldSetStationOfASmallerNumberOfStations() {
+    void shouldSetStationIsBorderThanTheNumberOfStations() {
+        Radio radio = new Radio();
+        radio.setStations(9);
+        assertEquals(9, radio.getCurrentRadioStation(),
+                "Номер радиостанции. Граничное значение станций по умолчанию");
+    }
+
+    @Test
+    void shouldSetStationNumberOfStationsOne() {
+        Radio radio = new Radio(1);
+        radio.setCurrentRadioStation(0);
+        radio.setStations(0);
+        assertEquals(0, radio.getCurrentRadioStation(),
+                "Номер радиостанции. Кол-во станций - одна.");
+    }
+
+
+    @Test
+    void shouldSetStationNegativNumberOfStations() {
         Radio radio = new Radio();
         radio.setStations(-1);
-        assertEquals(5, radio.getCurrentRadioStation(), "Номер радиостанции. Негативное min значение");
+        assertEquals(5, radio.getCurrentRadioStation(), "Номер радиостанции. Негативное  значение");
     }
 
     @Test
@@ -48,8 +75,8 @@ class RadioTest {
 
     @Test
     void shoruldSelectingTheWrongRadioStationNumbeMax() {
-        Radio rad = new Radio();
-        rad.setCurrentRadioStation(35);
+        Radio rad = new Radio(30);
+        rad.setCurrentRadioStation(30);
         rad.selectingTheWrongRadioStationNumber();
         assertEquals(0, rad.getCurrentRadioStation(), "Негативное максимальное граничное значение");
     }
@@ -106,9 +133,9 @@ class RadioTest {
     @Test
     void shouldReduceTheVolumeByOneStep() {
         Radio rad = new Radio();
-        rad.setCurrentVolume(-5);
+        rad.setCurrentVolume(-1);
         rad.decreaseVolume();
-        assertEquals(0, rad.getMinVolume(), "Минимальное граничное значение");
+        assertEquals(0, rad.getCurrentVolume(), "Негативное граничное значение");
     }
 
 
