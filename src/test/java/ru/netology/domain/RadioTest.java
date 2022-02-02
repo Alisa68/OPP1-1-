@@ -12,6 +12,27 @@ class RadioTest {
     }
 
     @Test
+    void shouldSetNumberOfRadioStationsPositive() {
+        Radio radio = new Radio(100);
+        radio.setNumberOfRadioStations(1);
+        assertEquals(1, radio.getNumberOfRadioStations(), "Установка количества радиостанций");
+    }
+
+    @Test
+    void shouldSetNumberOfRadioStationsNegative() {
+        Radio radio = new Radio(100);
+        radio.setNumberOfRadioStations(101);
+        assertEquals(100, radio.getNumberOfRadioStations(), "Установка количества радиостанций");
+    }
+
+    @Test
+    void shouldSetNumberOfRadioStationsNegative2() {
+        Radio radio = new Radio(100);
+        radio.setNumberOfRadioStations(0);
+        assertEquals(100, radio.getNumberOfRadioStations(), "Установка количества радиостанций");
+    }
+
+    @Test
     void shouldStations() {
         Radio radio = new Radio(20);
         radio.setStations(15);
@@ -135,7 +156,7 @@ class RadioTest {
         Radio rad = new Radio();
         rad.setCurrentVolume(-1);
         rad.decreaseVolume();
-        assertEquals(0, rad.getCurrentVolume(), "Негативное граничное значение");
+        assertEquals(0, rad.getMinVolume(), "Негативное граничное значение");
     }
 
 
