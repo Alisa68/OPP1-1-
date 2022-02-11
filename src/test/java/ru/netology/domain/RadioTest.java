@@ -6,93 +6,156 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RadioTest {
 
+    private final Radio radioDefault = new Radio();
+    private final Radio radio = new Radio(20);
+    private final Radio radioNegative = new Radio(-20);
+
 
     @Test
-    void shouldConstructorWithOutParametersNegativMin() {
-        Radio radio = new Radio();
+    void shouldCurrentRadioStationNumberPositiveBoundaryValuesRadioDefaultMax() {
+        radioDefault.setCurrentRadioStation(9);
+        assertEquals(9, radioDefault.getCurrentRadioStation(), "выставление текущего номера" +
+                " радиостанции - позитивный, граничные значения max");
+
+
+    }
+
+    @Test
+    void shouldCurrentRadioStationNumberPositiveBoundaryValuesRadioDefaultMinD() {
+        radioDefault.setCurrentRadioStation(0);
+        assertEquals(0, radioDefault.getCurrentRadioStation(), "выставление текущего номера" +
+                " радиостанции - позитивный, граничные значения min");
+
+
+    }
+
+    @Test
+    void shouldCurrentRadioStationNumberPositiveBoundaryValuesRadioDefaultMaxD() {
+        radio.setCurrentRadioStation(19);
+        assertEquals(19, radio.getCurrentRadioStation(), "выставление текущего номера" +
+                " радиостанции - позитивный, граничные значения max");
+
+
+    }
+
+    @Test
+    void shouldCurrentRadioStationNumberPositiveBoundaryValuesRadioDefaultMin() {
+        radio.setCurrentRadioStation(0);
+        assertEquals(0, radio.getMinRadioStation(), "выставление текущего номера" +
+                " радиостанции - позитивный, граничные значения min");
+
+
+    }
+
+    @Test
+    void shouldCurrentRadioStationNumberNegativeBoundaryValuesRadioDefaultMin() {
+        radioDefault.setCurrentRadioStation(-1);
+        assertEquals(0, radioDefault.getCurrentRadioStation(), "Негативное минимальное граничное" +
+                " значение");
+    }
+
+    @Test
+    void shouldCurrentRadioStationNumberNegativeBoundaryValuesRadioDefaultMax() {
+        radioDefault.setCurrentRadioStation(10);
+        assertEquals(9, radioDefault.getCurrentRadioStation(), "Негативное max граничное" +
+                " значение");
+    }
+
+    @Test
+    void shouldCurrentRadioStationNumberNegativeBoundaryValuesRadioMin() { //Модифицированое радио
+
         radio.setCurrentRadioStation(-1);
-        radio.setStation();
-        assertEquals(0, radio.getMinRadioStation(), "Конструктор без параметров." +
-                "Негативное min значение.");
-
+        assertEquals(0, radio.getCurrentRadioStation(), "Негативное " +
+                "min граничное значение");
     }
 
     @Test
-    void shouldСonstructorWithTheParameterNegativMin() {
-        Radio radio = new Radio(20);
+    void shouldCurrentRadioStationNumberNegativeBoundaryValuesRadioMax() {
+
         radio.setCurrentRadioStation(20);
-        radio.setStation();
-        assertEquals(0, radio.getMinRadioStation(),
-                "конструктор с параметром. Негативное max");
+        assertEquals(19, radio.getCurrentRadioStation(), "Негативное max граничное значение");
     }
 
     @Test
-    void shouldStations() {
-        Radio radio = new Radio();
-        radio.setStation();
-        assertEquals(5, radio.getCurrentRadioStation(),
-                "Номер радиостанции,по умолчанию");
-    }
-
-
-    @Test
-    void shouldSetNumberRadiostationChanging() {
-        Radio radio = new Radio(5);
-        radio.setCurrentRadioStation(4);
-        assertEquals(4, radio.getCurrentRadioStation(), "Номер радиостанции с цифрового пульта");
-    }
-
-    @Test
-    void shoruldSelectingTheWrongRadioStationNumbe() {
-        Radio rad = new Radio();
-        rad.setCurrentRadioStation(-1);
-        rad.selectingTheWrongRadioStationNumber();
-        assertEquals(0, rad.getCurrentRadioStation(), "Негативное минимальное граничное значение");
-    }
-
-    @Test
-    void shoruldSelectingTheWrongRadioStationNumbeMax() {
-        Radio rad = new Radio(20);
-        rad.setCurrentRadioStation(21);
-        rad.selectingTheWrongRadioStationNumber();
-        assertEquals(0, rad.getCurrentRadioStation(), "Негативное максимальное граничное значение");
+    void shouldChangeTheStationByButtonNextIfCurrentIsNineStandart() {
+        radioDefault.selectingTheWrongRadioStationNumber();
+        assertEquals(0, radioDefault.getMinRadioStation(), "Текущая радиостанция - max, " +
+                "next (следующая) на пульте, то текущая 0-ая");
     }
 
     @Test
     void shouldChangeTheStationByButtonNextIfCurrentIsNine() {
-        Radio radio = new Radio(11);
-        radio.setMaxRadioStation(10);
         radio.selectingTheWrongRadioStationNumber();
         assertEquals(0, radio.getMinRadioStation(), "Текущая радиостанция - max, " +
                 "next (следующая) на пульте, то текущая 0-ая");
     }
 
     @Test
-    void shouldTheNextChannelOfTheRadioStation() {
-        Radio rad = new Radio(15);
-        rad.setMaxRadioStation(14);
-        rad.setCurrentRadioStation(13);
-        rad.selectingTheWrongRadioStationNumber();
-        assertEquals(14, rad.getCurrentRadioStation(), "Следующий канал");
+    void shouldTheNextChannelOfTheRadioStationMax() {
+        radio.setCurrentRadioStation(19);
+        radio.selectingTheWrongRadioStationNumber();
+        assertEquals(0, radio.getCurrentRadioStation(), "Следующий канал.Max radio");
     }
 
     @Test
-    void shouldChangeTheStationByPrevButtonIfCurrentIsNull() {
-        Radio radio = new Radio();
+    void shouldTheNextChannelOfTheRadioStationMin() {
         radio.setCurrentRadioStation(0);
-        radio.setMaxRadioStation(9);
-        radio.changeTheStationByPrevButton();
-        assertEquals(9, radio.getMaxRadioStation(), "Текущая радиостанция - 0,  prev (предыдущая) " +
+        radio.selectingTheWrongRadioStationNumber();
+        assertEquals(1, radio.getCurrentRadioStation(), "Следующий канал.Min radio");
+    }
+
+    @Test
+    void shouldTheNextChannelOfTheRadioStationStandartMax() {
+        radioDefault.setCurrentRadioStation(9);
+        radioDefault.selectingTheWrongRadioStationNumber();
+        assertEquals(0, radioDefault.getCurrentRadioStation(), "Следующий канал. Max radio Default");
+    }
+
+    @Test
+    void shouldTheNextChannelOfTheRadioStationStandartMin() {
+        radioDefault.setCurrentRadioStation(0);
+        radioDefault.selectingTheWrongRadioStationNumber();
+        assertEquals(1, radioDefault.getCurrentRadioStation(), "Следующий канал.Min  radio Default ");
+    }
+
+
+    @Test
+    void shouldChangeTheStationByPrevButtonIfCurrentIsNullStandart() {
+        radioDefault.setCurrentRadioStation(0);
+        radioDefault.changeTheStationByPrevButton();
+        assertEquals(9, radioDefault.getMaxRadioStation(), "Текущая радиостанция - 0,  prev (предыдущая) " +
                 "на пульте, то текущей должна стать максимальная");
     }
 
     @Test
-    void shouldChangeTheStationByPrevButton() {
-        Radio rad = new Radio();
-        rad.changeTheStationByPrevButton();
-        assertEquals(4, rad.getCurrentRadioStation(), "Предыдущий канал");
+    void shouldChangeTheStationByPrevButtonIfCurrentIsNull() {
+        radio.setCurrentRadioStation(0);
+        radio.changeTheStationByPrevButton();
+        assertEquals(19, radio.getMaxRadioStation(), "Текущая радиостанция - 0,  prev (предыдущая) " +
+                "на пульте, то текущей должна стать максимальная");
     }
 
+
+    @Test
+    void shouldChangeTheStationByPrevButtonMax() {
+        radio.setCurrentRadioStation(19);
+        radio.changeTheStationByPrevButton();
+        assertEquals(18, radio.getCurrentRadioStation(), "Предыдущий канал.");
+    }
+
+    @Test
+    void shouldChangeTheStationByPrevButtonStandartMax() {
+        radioDefault.setCurrentRadioStation(9);
+        radioDefault.changeTheStationByPrevButton();
+        assertEquals(8, radioDefault.getCurrentRadioStation(), "Предыдущий канал.Стандартное радио.");
+    }
+
+    @Test
+    void shouldAmountRadioStationNegative() {
+        assertEquals(9, radioNegative.getMaxRadioStation(),
+                "Количество радиостанций при создании объекта - негативный");
+
+    }
 
     @Test
     void shouldIincreaseTheVolumeByOneStep() {
@@ -127,29 +190,4 @@ class RadioTest {
         assertEquals(98, rad.getCurrentVolume(), "Уменьшение громкости 1--");
     }
 
-
-    @Test
-    void shouldSetNumberRadioStation() {
-        Radio rad = new Radio();
-        rad.setMaxRadioStation(9);
-        rad.setNumberOfRadioStations();
-        assertEquals(10, rad.getNumberOfRadioStations(), "Количество станций по умолчанию");
-    }
-
-
-    @Test
-    void shouldSetNumberRadioStationMaxNegativ() {
-        Radio rad = new Radio(49);
-        rad.setMaxRadioStation(50);
-        rad.setNumberOfRadioStations();
-        assertEquals(49, rad.getNumberOfRadioStations(), "Количество станций с заданным max negariv");
-    }
-
-    @Test
-    void shouldSetNumberRadioStationMinNegativ() {
-        Radio rad = new Radio(2);
-        rad.setMaxRadioStation(1);
-        rad.setNumberOfRadioStations();
-        assertEquals(2, rad.getNumberOfRadioStations(), "Количество станций с заданным min ");
-    }
 }
